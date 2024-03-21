@@ -5,6 +5,36 @@ Changelog is rather internal in nature. See release notes for the public overvie
 ## Upcoming version
 
 <!-- [DO NOT REMOVE-USED BY GH ACTION] PASTE CHANGELOG -->
+	
+	
+- [#4]
+
+	  - **Description:** Change 1
+	  - **Products impact:** -
+	  - **Addresses:** -
+	  - **Components:** -
+	  - **Breaking:** -
+	  - **Impacts a11y:** -
+	  - **Guidance:** -
+
+[#4]: https://github.com/learningequality/test-actions/pull/4
+
+	
+	---
+	
+- [#4]
+
+	 - **Description:** Change 2
+	  - **Products impact:** -
+	  - **Addresses:** -
+	  - **Components:** -
+	  - **Breaking:** -
+	  - **Impacts a11y:** -
+	  - **Guidance:** -
+
+[#4]: https://github.com/learningequality/test-actions/pull/4
+
+	 
 
 
 - [#531]
