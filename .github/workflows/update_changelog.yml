@@ -25,6 +25,7 @@ jobs:
         id: modify-changelog
         shell: python
         run: |
+          import re
           if "${{ github.event.pull_request.user.login }}" == "dependabot[bot]":
               changelog = "  - **Description:** ${{ github.event.pull_request.title }}\n  - **Products impact:** Dev Dependency upgrade\n  - **Addresses:** -\n  - **Components:** -\n  - **Breaking:** -\n  - **Impacts a11y:** -\n  - **Guidance:** -"
           else:
