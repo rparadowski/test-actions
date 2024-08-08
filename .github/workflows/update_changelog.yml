@@ -1,7 +1,7 @@
 name: Update Changelog.md
 
 on:
-  pull_request:
+  pull_request_target:
     types:
       - closed
 
@@ -46,8 +46,5 @@ jobs:
           awk '/<!-- \[DO NOT REMOVE-USED BY GH ACTION\] PASTE CHANGELOG -->/{print; system("cat pr_info.txt"); next} 1' CHANGELOG.md > tmpfile && mv tmpfile CHANGELOG.md
         
       - name: Commit updated CHANGELOG.md
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-            branch: ${{ github.event.pull_request.base.ref }}
-            commit_message: "Update CHANGELOG.md w/ PR #${{ github.event.pull_request.number }}"
-            file_pattern: CHANGELOG.md
+        uses: pre-commit-ci/lite-action@v1.0.2
+        if: always()
