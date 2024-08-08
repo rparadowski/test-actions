@@ -32,7 +32,7 @@ jobs:
               description = """${{ github.event.pull_request.body }}"""
               capture = re.compile("<!-- \[DO NOT REMOVE-USED BY GH ACTION\] CHANGELOG START -->\s+<!--(\n|.)+?(?=- \*\*Description)(?P<body>(\n|.)+?(?=<!-- \[DO NOT REMOVE-USED BY GH ACTION\] CHANGELOG END -->))")
               match = capture.search(description)
-              changelog = match.groupsdict()["body"].strip()
+              changelog = match.groupdict()["body"].strip()
 
           final_changelog = "<!-- [DO NOT REMOVE-USED BY GH ACTION] PASTE CHANGELOG -->\n\n"
 
