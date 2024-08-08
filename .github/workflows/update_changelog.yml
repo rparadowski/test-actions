@@ -23,30 +23,41 @@ jobs:
 
       - name: Extract and update Changelog
         id: modify-changelog
+        shell: python
         run: |
-          if [ "${{ github.event.pull_request.user.login }}" == "dependabot[bot]" ]; then
-          changelog="- **Description:** ${{ github.event.pull_request.title }}\n  - **Products impact:** Dev Dependency upgrade\n  - **Addresses:** -\n  - **Components:** -\n  - **Breaking:** -\n  - **Impacts a11y:** -\n  - **Guidance:** -"
-          else
-            description=$(jq -r ".pull_request.body" "$GITHUB_EVENT_PATH")
-            changelog_section=$(echo "$description" | awk '/<!-- \[DO NOT REMOVE-USED BY GH ACTION\] CHANGELOG START -->/{flag=1; next} /<!-- \[DO NOT REMOVE-USED BY GH ACTION\] CHANGELOG END -->/{flag=0} flag' | sed '/<!--/,/-->/d')
-            changelog="${changelog_section}"
-          fi
+          if "${{ github.event.pull_request.user.login }}" == "dependabot[bot]":
+              changelog = "  - **Description:** ${{ github.event.pull_request.title }}\n  - **Products impact:** Dev Dependency upgrade\n  - **Addresses:** -\n  - **Components:** -\n  - **Breaking:** -\n  - **Impacts a11y:** -\n  - **Guidance:** -"
+          else:
+            description = """${{ github.event.pull_request.body }}"""
+            capture = re.compile("<!-- \[DO NOT REMOVE-USED BY GH ACTION\] CHANGELOG START -->\s+<!--(\n|.)+?(?=- \*\*Description)(?P<body>(\n|.)+?(?=<!-- \[DO NOT REMOVE-USED BY GH ACTION\] CHANGELOG END -->))")
+            match = capture.search(description)
+            changelog = match.groupsdict()["body"].strip()
 
-          pr_number=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
-          pr_link="[#${pr_number}]"
-          pr_link_ref="[#${pr_number}]: ${{ github.event.pull_request.html_url }}"
+          final_changelog = "<!-- [DO NOT REMOVE-USED BY GH ACTION] PASTE CHANGELOG -->\n\n"
 
-          while IFS= read -r entry; do
-          if [[ $entry == *"- **Description:"* ]]; then
-              echo -e "- ${pr_link}\n"
-          fi
-          echo -e "\t${entry}"
-          if [[ $entry == *"- **Guidance:"* ]]; then
-              echo -e "\n${pr_link_ref}\n"
-          fi
-          done <<< "$changelog_section" > pr_info.txt
+          pr_number = "${{ github.event.pull_request.number }}"
+          pr_link = "[#{}]".format(pr_number)
+          pr_link_ref = pr_link + ": ${{ github.event.pull_request.html_url }}"
 
-          awk '/<!-- \[DO NOT REMOVE-USED BY GH ACTION\] PASTE CHANGELOG -->/{print; system("cat pr_info.txt"); next} 1' CHANGELOG.md > tmpfile && mv tmpfile CHANGELOG.md
+          for changeline in changelog.splitlines():
+              if not changeline:
+                  continue
+
+              if changeline.startswith("- **Description:**"):
+                  final_changelog += "\n" + "- " + pr_link + "\n"
+
+              final_changelog += "  " + changeline + "\n"
+
+              if changeline.startwith("- **Guidance:**"):
+                  final_changelog += "\n" + pr_link_ref + "\n"
+
+           with open("CHANGELOG.md", "r") as f:
+               current_changelog = f.read()
+
+           new_changelog = current_changelog.replace("<!-- [DO NOT REMOVE-USED BY GH ACTION] PASTE CHANGELOG -->", final_changelog)
+
+           with open("CHANGELOG.md", "w") as f:
+               f.write(new_changelog)
 
       - uses: tibdex/github-app-token@v1
         id: generate-token
