@@ -1,12 +1,14 @@
 name: Check PR for Changelog
 
 on:
+  push:
   pull_request:
     types: [opened, edited, reopened]
 
 jobs:
   check-description:
     runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
     steps:
 
       - name: Checkout code
