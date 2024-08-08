@@ -18,6 +18,8 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.base.ref }}
           fetch-depth: 0
+          # Prevent later git operations from reusing the same authentication
+          persist-credentials: false
 
       - name: Extract and update Changelog
         id: modify-changelog
