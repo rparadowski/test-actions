@@ -49,7 +49,7 @@ jobs:
 
               final_changelog += "  " + changeline + "\n"
 
-              if changeline.startwith("- **Guidance:**"):
+              if changeline.startswith("- **Guidance:**"):
                   final_changelog += "\n" + pr_link_ref + "\n"
 
           with open("CHANGELOG.md", "r") as f:
