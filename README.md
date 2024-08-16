@@ -1,3 +1,3 @@
 # A repository for testing GH actions
 
-Test changelog actions PR 1 
+Test changelog actions PR 2
