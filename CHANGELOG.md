@@ -7,6 +7,19 @@ Changelog is rather internal in nature. See release notes for the public overvie
 <!-- [DO NOT REMOVE-USED BY GH ACTION] PASTE CHANGELOG -->
 
 
+- [#26]
+  - **Description:**  Fix update changelog to avoid expecting a comment after the changelog start flag
+  - **Products impact:** bugfix.
+  - **Addresses:** -.
+  - **Components:** -.
+  - **Breaking:** no
+  - **Impacts a11y:** -
+  - **Guidance:** -.
+
+[#26]: https://github.com/learningequality/test-actions/pull/26
+
+
+
 - [#25]
   - **Description:** Change 1
   - **Products impact:** Choose from - none (for internal updates) / bugfix / new API / updated API / removed API. If it's 'none', use "-" for all items below to indicate they are not relevant.
