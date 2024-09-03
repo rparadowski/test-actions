@@ -1,6 +1,6 @@
 # Changelog
 
-Changelog is rather internal in nature. See release notes for the public overview and guidelines. Releases are recorded as git tags in the [Github releases](https://github.com/learningequality/kolibri-design-system/releases) page.
+Changelog is rather internal in nature. See release notes for the public overview and guidelines. Releases are recorded as git tags in the [Github releases](https://github.com/learningequality/kolibri-design-system/releases) page
 
 ## Upcoming version
 
