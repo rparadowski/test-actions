@@ -7,6 +7,19 @@ Changelog is rather internal in nature. See release notes for the public overvie
 <!-- [DO NOT REMOVE-USED BY GH ACTION] PASTE CHANGELOG -->
 
 
+- [#30]
+  - **Description:** Added workflow to handle PR events (open, edit, close, synchronize, review events, and comments) and update a spreadsheet with key PR details.
+  - **Products impact:** Internal update for managing PR metadata.
+  - **Addresses:** -
+  - **Components:** .github workflows.
+  - **Breaking:** no
+  - **Impacts a11y:** no
+  - **Guidance:** This update adds automation for tracking PR details and should be used for all relevant repositories moving forward.
+
+[#30]: https://github.com/learningequality/test-actions/pull/30
+
+
+
 - [#29]
   - **Description:** No things to see here stranger... This is just a description :)
   - **Products impact:** Choose from - none (for internal updates) / bugfix / new API / updated API / removed API. If it's 'none', use "-" for all items below to indicate they are not relevant.
