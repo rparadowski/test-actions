@@ -10,7 +10,7 @@ on:
 
 jobs:
   call-update-spreadsheet:
-    uses: learningequality/.github/workflows/update-pr-spreadsheet.yml@main
+    uses: learningequality/.github/.github/workflows/update-pr-spreadsheet.yml@main
     with:
       pr_data: |
         {
