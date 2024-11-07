@@ -71,8 +71,6 @@ jobs:
         run: |
           # Update the commit file
           echo "${{ steps.check-commit.outputs.latest_commit }}" > packages/hashi/.h5p-commit-sha
-          # Run your script here
-          yarn workspace hashi run build-h5p
       - name: Generate App Token
         if: steps.check-commit.outputs.changed == 'true'
         id: generate-token
