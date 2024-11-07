@@ -33,12 +33,10 @@ jobs:
       - name: Check commit status
         id: check-commit
         run: |
-            import json
             import os
             from pathlib import Path
             # Get the latest commit from the API response
-            data = json.loads("""${{ steps.get-commit.outputs.data }}""")
-            latest_commit = data["commit"]["sha"].strip()
+            latest_commit = "${{ fromJson(steps.get-commit.outputs.data).commit.sha }}".strip()
             # Check stored commit
             commit_file = Path('packages/hashi/.h5p-commit-sha')
             if commit_file.exists():
