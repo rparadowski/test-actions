@@ -39,6 +39,7 @@ jobs:
             latest_commit = "${{ fromJson(steps.get-commit.outputs.data).commit.sha }}".strip()
             # Check stored commit
             commit_file = Path('packages/hashi/.h5p-commit-sha')
+            stored_commit = ""
             if commit_file.exists():
                 stored_commit = commit_file.read_text().strip()
                 has_changed = stored_commit != latest_commit
@@ -47,6 +48,7 @@ jobs:
                 has_changed = True
             # Set outputs for GitHub Actions
             with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+                print(f"stored_commit={stored_commit}", file=f)
                 print(f"latest_commit={latest_commit}", file=f)
                 print(f"changed={'true' if has_changed else 'false'}", file=f)
         shell: python
@@ -90,7 +92,8 @@ jobs:
           delete-branch: true
           title: 'Update from target repository commit'
           body: |
-            This PR was automatically created by the Update H5P JS library.
+            This PR was automatically created by the Update H5P JS library Github Action.
             Updates from target repository commit: ${{ steps.check-commit.outputs.latest_commit }}
+            https://github.com/h5p/h5p-php-library/compare/${{ steps.check-commit.outputs.stored_commit }}...${{ steps.check-commit.outputs.latest_commit }}
           base: main
   
